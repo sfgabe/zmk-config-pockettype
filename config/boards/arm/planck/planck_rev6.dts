@@ -1,0 +1,65 @@
+/*
+ * Copyright (c) 2017 I-SENSE group of ICCS
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+/dts-v1/;
+#include <st/f3/stm32f303Xc.dtsi>
+
+/ {
+	model = "Plack PCD, rev6";
+	compatible = "planck,rev6", "st,stm32f303";
+
+	chosen {
+		zephyr,sram = &sram0;
+		zephyr,flash = &flash0;
+		zmk,kscan = &kscan0;
+	};
+
+	kscan0: kscan {
+		compatible = "zmk,kscan-gpio-matrix";
+		label = "KSCAN";
+		row-gpios
+			= <&gpioa 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+			, <&gpioa 9  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+			, <&gpioa 8  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+			, <&gpiob 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+			, <&gpioc 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+			, <&gpioc 14 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+			, <&gpioc 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+			, <&gpioa 2  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+			;
+		col-gpios
+			= <&gpiob 11 GPIO_ACTIVE_HIGH>
+			, <&gpiob 10 GPIO_ACTIVE_HIGH>
+			, <&gpiob 2  GPIO_ACTIVE_HIGH>
+			, <&gpiob 1  GPIO_ACTIVE_HIGH>
+			, <&gpioa 7  GPIO_ACTIVE_HIGH>
+			, <&gpiob 0  GPIO_ACTIVE_HIGH>
+			;
+	};
+
+};
+
+&usb {
+	status = "okay";
+};
+
+&flash0 {
+	/*
+	 * For more information, see:
+	 * http://docs.zephyrproject.org/latest/guides/dts/index.html#flash-partitions
+	 */
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		/* Set 6Kb of storage at the end of the 256Kb of flash */
+		storage_partition: partition@3e800 {
+			label = "storage";
+			reg = <0x0003e800 0x00001800>;
+		};
+	};
+};
