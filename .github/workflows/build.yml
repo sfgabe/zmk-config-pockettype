@@ -35,15 +35,15 @@ jobs:
         run: west zephyr-export
       - name: West Build (CRBN)
         run: west build -s zmk/app -b nice_nano -- -DSHIELD=crbn -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-      - name: CRBN DTS File
+      - name: PocketType DTS File
         if: ${{ always() }}
         run: cat -n build/zephyr/nice_nano.dts.pre.tmp
-      - name: CRBN Kconfig file
+      - name: PocketType Kconfig file
         run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
       - name: Rename zmk.uf2
-        run: cp build/zephyr/zmk.uf2 crbn_nice_nano.uf2
-      - name: Archive (CRBN)
+        run: cp build/zephyr/zmk.uf2 pockettype_nice_nano.uf2
+      - name: Archive (PocketType)
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: crbn_nice_nano.uf2
+          path: pockettype_nice_nano.uf2
