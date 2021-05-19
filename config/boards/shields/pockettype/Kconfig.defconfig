@@ -4,6 +4,6 @@
 if SHIELD_POCKETTYPE
 
 config ZMK_KEYBOARD_NAME
-    default "Pockettype"
+    default "PocketType"
 
 endif
