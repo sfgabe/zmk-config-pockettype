@@ -34,7 +34,7 @@ jobs:
       - name: West Zephyr export
         run: west zephyr-export
       - name: West Build (PocketType)
-        run: west build -s zmk/app -b nice_nano -- -DSHIELD=POCKETTYPE -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build -s zmk/app -b nice_nano -- -DSHIELD=pockettype -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: PocketType DTS File
         if: ${{ always() }}
         run: cat -n build/zephyr/nice_nano.dts.pre.tmp
