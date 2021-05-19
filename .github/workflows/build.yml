@@ -33,7 +33,7 @@ jobs:
         run: west update
       - name: West Zephyr export
         run: west zephyr-export
-      - name: West Build (CRBN)
+      - name: West Build (PocketType)
         run: west build -s zmk/app -b nice_nano -- -DSHIELD=crbn -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
       - name: PocketType DTS File
         if: ${{ always() }}
